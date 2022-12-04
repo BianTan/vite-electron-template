@@ -1,0 +1,50 @@
+{
+  "name": "vite-electron-template",
+  "version": "0.0.1",
+  "author": "BianDan",
+  "main": "src/main/index.js",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron": "wait-on tcp:5173 && nodemon --ignore ./src/renderer -e .js,.html,css,.vue -x cross-env NODE_ENV=development electron .",
+    "electron:serve": "concurrently -k \"pnpm dev\" \"pnpm electron\"",
+    "electron:build": "vite build && electron-builder"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1",
+    "vue": "^3.2.41"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.2.0",
+    "concurrently": "^7.6.0",
+    "cross-env": "^7.0.3",
+    "electron": "^20.3.8",
+    "electron-builder": "^23.6.0",
+    "nodemon": "^2.0.20",
+    "sass": "^1.56.1",
+    "vite": "^3.2.3",
+    "wait-on": "^6.0.1"
+  },
+  "build": {
+    "appId": "me.biandan.your-app",
+    "productName": "ElectronApp",
+    "copyright": "Copyright © 2022 <BianDan>",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "files": [
+      "dist/**/*",
+      "src/main/**/*",
+      "src/preload/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist_electron"
+    }
+  }
+}
